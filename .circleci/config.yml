@@ -6,6 +6,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
+          docker_layer_caching: true
           version: 18.06.0-ce
       - run:
           name: system info
@@ -16,8 +17,8 @@ jobs:
             lscpu
             free
             df -h
-            docker info
-            docker version
+            # docker info
+            # docker version
   machine:
     machine:
       image: ubuntu-1604:201903-01
