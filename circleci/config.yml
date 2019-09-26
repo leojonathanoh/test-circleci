@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: alpine:3.10
+    steps:
+      - checkout
+      - run:
+          name: system info
+          command: |
+            echo hello
+            echo world
+            echo goodbye
