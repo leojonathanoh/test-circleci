@@ -16,3 +16,36 @@ jobs:
             df -h
             docker info
             docker version
+  machine:
+    machine:
+      image: ubuntu-1604:201903-01
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: system info
+          command: |
+            hostname
+            whoami
+            cat /etc/*release
+            lscpu
+            free
+            df -h
+            docker info
+            docker version
+  macos:
+    macos:
+      xcode: "9.0"
+    steps:
+      - checkout
+      - run:
+          name: system info
+          command: |
+            hostname
+            whoami
+            cat /etc/*release
+            lscpu
+            free
+            df -h
+            docker info
+            docker version
