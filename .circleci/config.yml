@@ -8,6 +8,11 @@ jobs:
       - run:
           name: system info
           command: |
-            echo hello
-            echo world
-            echo goodbye
+            hostname
+            whoami
+            cat /etc/*release
+            lscpu
+            free
+            df -h
+            docker info
+            docker version
