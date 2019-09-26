@@ -2,7 +2,7 @@ version: 2
 jobs:
   docker:
     docker:
-      - image: docker:18.06-dind
+      - image: ubuntu:18.04
     steps:
       - checkout
       - setup_remote_docker:
