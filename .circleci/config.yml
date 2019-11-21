@@ -11,3 +11,7 @@ jobs:
             echo hello
             echo world
             echo goodbye
+      - run:
+          name: Print environment variables
+          command: |
+            printenv
