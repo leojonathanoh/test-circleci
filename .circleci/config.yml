@@ -8,11 +8,9 @@ jobs:
       - run:
           name: system info
           command: |
-            set -e
             echo hello
             echo world
             echo goodbye
-            false
       - run:
           name: Print environment variables
           command: |
