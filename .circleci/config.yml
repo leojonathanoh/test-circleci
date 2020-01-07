@@ -1,7 +1,7 @@
 version: 2.1
 parameters:
   run_job_build:
-    type: boolean
+    type: string
     default: false
 workflows:
   version: 2
