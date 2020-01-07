@@ -1,12 +1,14 @@
+version: 2.1
+parameters:
+  ci:
+    type: boolean
+    default: false
 workflows:
   version: 2
   ci:
+    when: << pipeline.parameters.ci >>
     jobs:
-    - build:
-        filters:
-          branches:
-            ignore: /.*/
-version: 2
+    - build
 jobs:
   build:
     machine:
