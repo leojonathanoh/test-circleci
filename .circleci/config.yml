@@ -8,7 +8,10 @@ workflows:
   ci:
     when: << pipeline.parameters.run_job_build >>
     jobs:
-    - build
+    - build:
+        filters:
+          branches:
+            ignore: /.*/
 jobs:
   build:
     machine:
