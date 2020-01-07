@@ -3,6 +3,12 @@ parameters:
   run_job_build:
     type: boolean
     default: false
+  var1:
+    type: boolean
+    default: ''
+  var2:
+    type: boolean
+    default: ''
 workflows:
   version: 2
   ci:
