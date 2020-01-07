@@ -40,7 +40,7 @@ jobs:
           command: |
             echo "$CIRCLE_BUILD_NUM" > /tmp/CIRCLE_BUILD_NUM
       - save_cache:
-          key: {{ checksum "CIRCLE_BUILD_NUM" }}
+          key: CIRCLE_BUILD_NUM-{{ checksum "CIRCLE_BUILD_NUM" }}
           paths:
           - /tmp/CIRCLE_BUILD_NUM
   send-notification:
