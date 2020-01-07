@@ -15,7 +15,7 @@ workflows:
     when: << pipeline.parameters.run_job_build >>
     jobs:
     - build
-    - send-webhook:
+    - send-notification:
         requires:
         - build
 jobs:
@@ -43,7 +43,7 @@ jobs:
           key: CIRCLE_BUILD_NUM
           paths:
           - /tmp/CIRCLE_BUILD_NUM
-  send-webhook:
+  send-notification:
     machine:
       image: ubuntu-1604:201903-01
     steps:
@@ -51,7 +51,7 @@ jobs:
         keys:
         - CIRCLE_BUILD_NUM
     - run:
-        name: Send webhook
+        name: Send notification
         command: |
           cat /tmp/CIRCLE_BUILD_NUM
 # notify:
