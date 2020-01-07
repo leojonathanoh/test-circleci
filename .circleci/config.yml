@@ -1,12 +1,12 @@
 version: 2.1
 parameters:
-  ci:
+  run_job_build:
     type: boolean
     default: false
 workflows:
   version: 2
   ci:
-    when: << pipeline.parameters.ci >>
+    when: << pipeline.parameters.run_job_build >>
     jobs:
     - build
 jobs:
