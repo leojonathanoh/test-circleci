@@ -17,6 +17,7 @@ workflows:
     - build
   run_send_notification:
     when: << pipeline.parameters.var1 >>
+    jobs:
     - send-notification #:
         # requires:
         # - build
