@@ -4,10 +4,10 @@ parameters:
     type: boolean
     default: false
   var1:
-    type: boolean
+    type: string
     default: ''
   var2:
-    type: boolean
+    type: string
     default: ''
 workflows:
   version: 2
