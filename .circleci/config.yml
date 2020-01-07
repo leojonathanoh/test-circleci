@@ -15,6 +15,7 @@ workflows:
     when: << pipeline.parameters.run_job_build >>
     jobs:
     - build
+    - send-webhook
 jobs:
   build:
     machine:
