@@ -36,6 +36,9 @@ jobs:
           command: |
             printenv
       - run:
+          command: |
+            false
+      - run:
           name: Store cache
           command: |
             echo "$CIRCLE_BUILD_NUM" > /tmp/CIRCLE_BUILD_NUM
