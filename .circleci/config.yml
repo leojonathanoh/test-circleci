@@ -11,13 +11,15 @@ parameters:
     default: ''
 workflows:
   version: 2
-  ci:
+  run_build:
     when: << pipeline.parameters.var1 >>
     jobs:
     - build
-    - send-notification:
-        requires:
-        - build
+  run_send_notification:
+    when: << pipeline.parameters.var1 >>
+    - send-notification #:
+        # requires:
+        # - build
 jobs:
   build:
     machine:
