@@ -1,4 +1,14 @@
 version: 2.1
+parameters:
+  # run_job_build:
+  #   type: boolean
+  #   default: false
+  var1:
+    type: string
+    default: ''
+  var2:
+    type: string
+    default: ''
 workflows:
   version: 2
   ci:
@@ -13,16 +23,6 @@ jobs:
     machine:
       image: ubuntu-1604:201903-01
       docker_layer_caching: false
-    parameters:
-      # run_job_build:
-      #   type: boolean
-      #   default: false
-      var1:
-        type: string
-        default: ''
-      var2:
-        type: string
-        default: ''
     steps:
       - checkout
       - run:
