@@ -39,10 +39,10 @@ jobs:
           command: |
             printenv
 
-      - run:
-          name: Fail the job
-          command: |
-            false
+      # - run:
+      #     name: Fail the job
+      #     command: |
+      #       false
 
       - run:
           when: always
