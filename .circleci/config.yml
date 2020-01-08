@@ -1,8 +1,8 @@
 version: 2.1
 parameters:
-  # run_job_build:
-  #   type: boolean
-  #   default: false
+  run_job_build:
+    type: boolean
+    default: false
   var1:
     type: string
     default: ''
@@ -12,7 +12,7 @@ parameters:
 workflows:
   version: 2
   ci:
-    when: << pipeline.parameters.var1 >>
+    when: << pipeline.parameters.run_job_build >>
     jobs:
     - build
     - send-notification
