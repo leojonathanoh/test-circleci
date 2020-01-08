@@ -80,6 +80,7 @@ jobs:
     - run:
         name: Send notification
         command: |
+          # Keep checking status of my workflow's sibling job. Once it's completed, send a notification.
           SLEEP=5
           SLEPT=0
           SLEEP_THRESHOLD=7200
@@ -95,8 +96,7 @@ jobs:
               if [ "$JOB_STATUS" == "success" ] || [ "$JOB_STATUS" == "failed" ]; then
                   echo "Sending notification"
                   JOB_NUMBER=$( echo -n "$JOB" | jq -r '.job_number' )
-                  curl -X POST -H 'Content-Type: application/json' --data "{ \"payload\": { \"build_num\" : $JOB_NUMBER } }" "$NOTIFICATION_WEBHOOK"
-                  exit 0
+                  curl -X POST -H 'Content-Type: application/json' --data "{ \"payload\": { \"build_num\" : $JOB_NUMBER } }" "$NOTIFICATION_WEBHOOK" && exit 0 || exit 1
               else
                   SLEPT=$(($SLEPT+$SLEEP))
                   if [ "$SLEPT" -ge "$SLEEP_THRESHOLD" ]; then
