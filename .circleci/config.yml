@@ -23,9 +23,9 @@ jobs:
     machine:
       image: ubuntu-1604:201903-01
       docker_layer_caching: false
-    environment:
-      var1: << pipeline.parameters.var1 >>
-      var2: << pipeline.parameters.var2 >>
+    # environment:
+    #   var1: << pipeline.parameters.var1 >>
+    #   var2: << pipeline.parameters.var2 >>
     steps:
       - checkout
       - run:
@@ -69,9 +69,9 @@ jobs:
     machine:
       image: ubuntu-1604:201903-01
       docker_layer_caching: false
-    environment:
-      var1: << pipeline.parameters.var1 >>
-      var2: << pipeline.parameters.var2 >>
+    # environment:
+    #   var1: << pipeline.parameters.var1 >>
+    #   var2: << pipeline.parameters.var2 >>
     steps:
     # - attach_workspace:
     #     # Must be absolute path or relative path from working_directory
