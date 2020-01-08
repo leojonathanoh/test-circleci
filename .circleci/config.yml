@@ -46,14 +46,14 @@ jobs:
             mkdir -p /tmp/workspace
             echo "$CIRCLE_BUILD_NUM" > /tmp/workspace/CIRCLE_BUILD_NUM
 
-      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
-      - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
-          # taken to be the root directory of the workspace.
-          root: /tmp/workspace
-          # Must be relative path from root
-          paths:
-            - CIRCLE_BUILD_NUM
+      # # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+      # - persist_to_workspace:
+      #     # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+      #     # taken to be the root directory of the workspace.
+      #     root: /tmp/workspace
+      #     # Must be relative path from root
+      #     paths:
+      #       - CIRCLE_BUILD_NUM
 
       # - save_cache:
       #     when: always
@@ -64,13 +64,14 @@ jobs:
     machine:
       image: ubuntu-1604:201903-01
     steps:
-    - attach_workspace:
-        # Must be absolute path or relative path from working_directory
-        at: /tmp/workspace
+    # - attach_workspace:
+    #     # Must be absolute path or relative path from working_directory
+    #     at: /tmp/workspace
 
     # - restore_cache:
     #     keys:
     #     - CIRCLE_BUILD_NUM-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+
     - run:
         name: Send notification
         command: |
