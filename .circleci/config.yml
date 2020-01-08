@@ -38,15 +38,18 @@ jobs:
           name: Print environment variables
           command: |
             printenv
-      # - run:
-      #     command: |
-      #       false
+
       - run:
           when: always
           name: Store CIRCLE_BUILD_NUM
           command: |
             mkdir -p /tmp/workspace
             echo "$CIRCLE_BUILD_NUM" > /tmp/workspace/CIRCLE_BUILD_NUM
+
+      - run:
+          name: Check df
+          command: |
+            df -h
 
       # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
       - persist_to_workspace:
@@ -57,6 +60,11 @@ jobs:
           paths:
             - CIRCLE_BUILD_NUM
 
+      - run:
+          name: Check df
+          command: |
+            df -h
+
       # - save_cache:
       #     when: always
       #     key: CIRCLE_BUILD_NUM-{{ .Environment.CIRCLE_WORKFLOW_ID }}
@@ -66,6 +74,11 @@ jobs:
     machine:
       image: ubuntu-1604:201903-01
     steps:
+    - run:
+        name: Check df
+        command: |
+          df -h
+
     # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
     - persist_to_workspace:
         # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
@@ -74,6 +87,11 @@ jobs:
         # Must be relative path from root
         paths:
           - CIRCLE_BUILD_NUM
+
+    - run:
+        name: Check df
+        command: |
+          df -h
 
     # - restore_cache:
     #     keys:
