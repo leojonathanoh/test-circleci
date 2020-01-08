@@ -96,7 +96,9 @@ jobs:
               if [ "$JOB_STATUS" == "success" ] || [ "$JOB_STATUS" == "failed" ]; then
                   echo "Sending notification"
                   JOB_NUMBER=$( echo -n "$JOB" | jq -r '.job_number' )
-                  curl -X POST -H 'Content-Type: application/json' --data "{ \"payload\": { \"build_num\" : $JOB_NUMBER } }" "$NOTIFICATION_WEBHOOK" && exit 0 || exit 1
+                  BODY="{ \"payload\": { \"build_num\": $JOB_NUMBER } }"
+                  echo "BODY: $BODY"
+                  curl -X POST -H 'Content-Type: application/json' --data "$BODY" "$NOTIFICATION_WEBHOOK" && exit 0 || exit 1
               else
                   SLEPT=$(($SLEPT+$SLEEP))
                   if [ "$SLEPT" -ge "$SLEEP_THRESHOLD" ]; then
