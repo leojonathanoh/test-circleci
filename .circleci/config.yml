@@ -15,9 +15,9 @@ workflows:
     when: << pipeline.parameters.var1 >>
     jobs:
     - build
-    - send-notification:
-        requires:
-        - build
+    - send-notification
+        # requires:
+        # - build
 jobs:
   build:
     machine:
@@ -38,30 +38,54 @@ jobs:
           name: Print environment variables
           command: |
             printenv
-      - run:
-          command: |
-            false
+      # - run:
+      #     command: |
+      #       false
       - run:
           when: always
-          name: Store cache
+          name: Store CIRCLE_BUILD_NUM
           command: |
-            echo "$CIRCLE_BUILD_NUM" > /tmp/CIRCLE_BUILD_NUM
-      - save_cache:
-          when: always
-          key: CIRCLE_BUILD_NUM-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+            mkdir -p /tmp/workspace
+            echo "$CIRCLE_BUILD_NUM" > /tmp/workspace/CIRCLE_BUILD_NUM
+
+      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: /tmp/workspace
+          # Must be relative path from root
           paths:
-          - /tmp/CIRCLE_BUILD_NUM
+            - CIRCLE_BUILD_NUM
+
+      # - save_cache:
+      #     when: always
+      #     key: CIRCLE_BUILD_NUM-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      #     paths:
+      #     - /tmp/CIRCLE_BUILD_NUM
   send-notification:
     machine:
       image: ubuntu-1604:201903-01
     steps:
-    - restore_cache:
-        keys:
-        - CIRCLE_BUILD_NUM-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+    # - restore_cache:
+    #     keys:
+    #     - CIRCLE_BUILD_NUM-{{ .Environment.CIRCLE_WORKFLOW_ID }}
     - run:
         name: Send notification
         command: |
-          cat /tmp/CIRCLE_BUILD_NUM
+          CNT=0
+          while true; do
+              if cat /tmp/workspace/CIRCLE_BUILD_NUM; then
+                  break
+              else
+                  CNT=$(($CNT+1))
+                  if [ "$CNT" -gt 12 ]; then
+                    exit 1
+                  fi
+                  echo "Sleeping for 5 seconds before checking again"
+                  sleep 5
+              fi
+          done
+
 # notify:
 #   webhooks:
 #   - url: https://outlook.office.com/webhook/78418f17-b295-40cc-ae37-bfc91463c01e@4e4f53c4-6f09-4818-9c77-020eeb613480/CircleCI/4a2bb892c6014937ba79528601766b78/51073360-bb16-430e-b8d7-e5f40375df1d
